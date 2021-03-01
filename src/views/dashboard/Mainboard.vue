@@ -149,7 +149,7 @@
                     </v-icon>
                   </v-col>
                   <v-col cols="5">
-                    Not Started
+                    In-Progress
                   </v-col>
                   <v-col cols="6">
                     10
@@ -166,7 +166,7 @@
                     </v-icon>
                   </v-col>
                   <v-col cols="5">
-                    Not Started
+                    Completed
                   </v-col>
                   <v-col cols="6">
                     10
@@ -208,7 +208,7 @@
                             </v-icon>
                         </v-col>
                         <v-col cols="5">
-                            Not Started
+                            In-Progress
                         </v-col>
                         <v-col cols="6">
                             10
@@ -225,7 +225,7 @@
                             </v-icon>
                         </v-col>
                         <v-col cols="5">
-                            Not Started
+                            Completed
                         </v-col>
                         <v-col cols="6">
                             10
@@ -267,7 +267,7 @@
                             </v-icon>
                         </v-col>
                         <v-col cols="5">
-                            Not Started
+                            In-Progress
                         </v-col>
                         <v-col cols="6">
                             10
@@ -284,10 +284,10 @@
                             </v-icon>
                         </v-col>
                         <v-col cols="5">
-                            Not Started
+                            Completed
                         </v-col>
                         <v-col cols="6">
-                            10
+                            219
                         </v-col>
                     </v-row>
                 </v-card>
