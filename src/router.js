@@ -16,6 +16,11 @@ export default new Router({
           path: '',
           component: () => import('@/views/dashboard/Mainboard'),
         },
+        {
+          name: 'PandL',
+          path: 'pandl',
+          component: () => import('@/views/dashboard/PandL'),
+        },
         // Dashboard
         {
           name: 'Dashboard',
