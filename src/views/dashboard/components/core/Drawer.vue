@@ -38,7 +38,7 @@
 
         <v-list-item-content>
           <v-list-item-title
-            class="display-1"
+            class="text-h4"
             v-text="profile.title"
           />
         </v-list-item-content>
@@ -113,34 +113,64 @@
         },
         {
           icon: 'mdi-account',
-          title: 'user',
-          to: '/pages/user',
+          title: 'P & L',
+          to: '/pandl',
         },
         {
-          title: 'rtables',
-          icon: 'mdi-clipboard-outline',
-          to: '/tables/regular-tables',
+          icon: 'mdi-account-group',
+          title: 'Ogenization',
+          to: '/',
         },
         {
-          title: 'typography',
-          icon: 'mdi-format-font',
-          to: '/components/typography',
+          icon: 'mdi-apps',
+          title: 'Content',
+          to: '/',
         },
         {
-          title: 'icons',
-          icon: 'mdi-chart-bubble',
-          to: '/components/icons',
+          icon: 'mdi-alarm-bell',
+          title: 'Report',
+          to: '/',
         },
         {
-          title: 'google',
-          icon: 'mdi-map-marker',
-          to: '/maps/google-maps',
+          icon: 'mdi-audio-video',
+          title: 'Tutorial',
+          to: '/',
         },
         {
-          title: 'notifications',
-          icon: 'mdi-bell',
-          to: '/components/notifications',
+          icon: 'mdi-account-heart',
+          title: 'Messages',
+          to: '/',
         },
+        // {
+        //   icon: 'mdi-account',
+        //   title: 'user',
+        //   to: '/pages/user',
+        // },
+        // {
+        //   title: 'rtables',
+        //   icon: 'mdi-clipboard-outline',
+        //   to: '/tables/regular-tables',
+        // },
+        // {
+        //   title: 'typography',
+        //   icon: 'mdi-format-font',
+        //   to: '/components/typography',
+        // },
+        // {
+        //   title: 'icons',
+        //   icon: 'mdi-chart-bubble',
+        //   to: '/components/icons',
+        // },
+        // {
+        //   title: 'google',
+        //   icon: 'mdi-map-marker',
+        //   to: '/maps/google-maps',
+        // },
+        // {
+        //   title: 'notifications',
+        //   icon: 'mdi-bell',
+        //   to: '/components/notifications',
+        // },
       ],
     }),
 

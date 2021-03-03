@@ -16,6 +16,85 @@
             type="Line"
           >
           </base-material-chart-card>
+          <base-material-card
+            icon="mdi-clipboard-text"
+            title="Revenue"
+            class="px-5 py-3"
+          >
+            <v-simple-table>
+              <thead>
+                <tr>
+                  <th>
+                  </th>
+                  <th>
+                    10/26/2020
+                  </th>
+                  <th>
+                    10/27/2020
+                  </th>
+                  <th>
+                    10/28/2020
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    Ads
+                  </td>
+                  <td>
+                  </td>
+                  <td>
+                  </td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Affiliate
+                  </td>
+                  <td>
+                  </td>
+                  <td>
+                  </td>
+                  <td>
+                  </td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </base-material-card>
+          <base-material-card
+            icon="mdi-clipboard-text"
+            title="Expenses"
+            class="px-5 py-3"
+          >
+            <v-simple-table>
+              <tbody>
+                <tr>
+                  <td>
+                    Ads
+                  </td>
+                  <td>
+                  </td>
+                  <td>
+                  </td>
+                  <td>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Affiliate
+                  </td>
+                  <td>
+                  </td>
+                  <td>
+                  </td>
+                  <td>
+                  </td>
+                </tr>
+              </tbody>
+            </v-simple-table>
+          </base-material-card>
         </v-col>
         <v-col
           cols="12"
