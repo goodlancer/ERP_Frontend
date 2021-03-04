@@ -1,0 +1,20 @@
+<template>
+  <v-container
+    id="Orgenization"
+    fluid
+    tag="section"
+  >
+    <v-row>
+        <v-col
+          cols="12"
+          md="10"
+        >
+        </v-col>
+        <v-col
+          cols="12"
+          md="2"
+        >
+        </v-col>
+    </v-row>
+  </v-container>
+</template>
