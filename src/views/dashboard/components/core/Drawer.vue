@@ -114,7 +114,7 @@
         {
           icon: 'mdi-apps',
           title: 'Content',
-          to: '/',
+          to: '/content',
         },
         {
           icon: 'mdi-alarm-bell',

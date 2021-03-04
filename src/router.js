@@ -26,6 +26,11 @@ export default new Router({
           path: 'orgenization',
           component: () => import('@/views/dashboard/Orgenization'),
         },
+        {
+          name: 'Content',
+          path: 'content',
+          component: () => import('@/views/dashboard/Content'),
+        },
         // Dashboard
         {
           name: 'Dashboard',
