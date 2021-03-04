@@ -21,6 +21,11 @@ export default new Router({
           path: 'pandl',
           component: () => import('@/views/dashboard/PandL'),
         },
+        {
+          name: 'Orgenization',
+          path: 'orgenization',
+          component: () => import('@/views/dashboard/Orgenization'),
+        },
         // Dashboard
         {
           name: 'Dashboard',

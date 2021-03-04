@@ -109,7 +109,7 @@
         {
           icon: 'mdi-account-group',
           title: 'Ogenization',
-          to: '/',
+          to: '/orgenization',
         },
         {
           icon: 'mdi-apps',
