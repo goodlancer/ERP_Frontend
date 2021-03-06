@@ -9,18 +9,21 @@
           cols="12"
           md="10"
         >
-          <v-calendar
-            ref="calendar"
-            v-model="value"
-            :weekdays="weekday"
-            :type="type"
-            :events="events"
-            :show-month-on-first=true
-            :event-overlap-mode="mode"
-            :event-overlap-threshold="30"
-            :event-color="getEventColor"
-            @change="getEvents"
-          ></v-calendar>
+          <v-sheet height="600">
+            <v-calendar
+              ref="calendar"
+              v-model="value"
+              :weekdays="weekday"
+              :type="type"
+              :events="events"
+              :show-month-on-first=true
+              :event-overlap-mode="mode"
+              :event-overlap-threshold="30"
+              :event-color="getEventColor"
+              @change="getEvents"
+            >
+            </v-calendar>
+          </v-sheet>
         </v-col>
         <v-col
           cols="12"
