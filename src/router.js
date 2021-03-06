@@ -31,6 +31,11 @@ export default new Router({
           path: 'content',
           component: () => import('@/views/dashboard/Content'),
         },
+        {
+          name: 'Report',
+          path: 'report',
+          component: () => import('@/views/dashboard/Report'),
+        },
         // Dashboard
         {
           name: 'Dashboard',

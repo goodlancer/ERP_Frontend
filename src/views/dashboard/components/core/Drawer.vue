@@ -119,7 +119,7 @@
         {
           icon: 'mdi-alarm-bell',
           title: 'Report',
-          to: '/',
+          to: '/report',
         },
         {
           icon: 'mdi-audio-video',
