@@ -15,6 +15,7 @@
             :weekdays="weekday"
             :type="type"
             :events="events"
+            :show-month-on-first=true
             :event-overlap-mode="mode"
             :event-overlap-threshold="30"
             :event-color="getEventColor"
@@ -54,26 +55,25 @@
     methods: {
       getEvents ({ start, end }) {
         const events = []
-
-        const min = new Date(`${start.date}T00:00:00`)
-        const max = new Date(`${end.date}T23:59:59`)
-        const days = (max.getTime() - min.getTime()) / 86400000
-        const eventCount = this.rnd(days, days + 20)
-
+        const eventCount = 30
         for (let i = 0; i < eventCount; i++) {
-          //   const allDay = this.rnd(0, 1) === 0
-          const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-          const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-          //   const secondTimestamp = this.rnd(0, allDay ? 288 : 8) * 900000
-          //   const second = new Date(first.getTime() + secondTimestamp)
-          var indexer = this.rnd(0, this.names.length - 1)
-          events.push({
-            name: this.names[indexer],
-            start: first,
-            end: first,
-            color: this.colors[indexer],
-            timed: 1,
-          })
+          const first = new Date()
+          const tmpdate = (first.getDate() - i)
+          first.setDate(tmpdate)
+          console.log(first + '/' + i + '/' + tmpdate)
+          //   var indexer = this.rnd(0, this.names.length - 1)
+          var indexer = 0
+          for (let j = 0; j < this.names.length - 1; j++) {
+            first.setHours(this.rnd(1, 10))
+            first.setMinutes(this.rnd(1, 59))
+            indexer = j
+            events.push({
+              name: this.names[indexer],
+              start: first,
+              color: this.colors[indexer],
+              timed: 1,
+            })
+          }
         }
         console.log(events)
         this.events = events
