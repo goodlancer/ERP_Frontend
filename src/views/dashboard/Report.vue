@@ -20,10 +20,22 @@
               :event-overlap-mode="mode"
               :event-overlap-threshold="30"
               :event-color="getEventColor"
+              v-on="on"
               @change="getEvents"
+              @dayclick="showingEvent"
             >
             </v-calendar>
           </v-sheet>
+          <v-card
+            v-for="t_event in today_event"
+            :key="t_event.id"
+            class="px-15 py-5"
+            :color="t_event.color"
+          >
+            <h4>{{t_event.start}}</h4>
+            <h2>{{t_event.name}}</h2>
+            <span>Today is worked on report page</span>
+          </v-card>
         </v-col>
         <v-col
           cols="12"
@@ -38,6 +50,7 @@
     name: 'Report',
     data () {
       return {
+        today_event: [],
         type: 'month',
         types: ['month', 'week', 'day', '4day'],
         mode: 'stack',
@@ -58,6 +71,7 @@
     methods: {
       getEvents ({ start, end }) {
         const events = []
+        const tevent = []
         const eventCount = 30
         for (let i = 0; i < eventCount; i++) {
           const first = new Date()
@@ -76,13 +90,27 @@
               color: this.colors[indexer],
               timed: 1,
             })
+
+            if (i === 0) {
+              tevent.push({
+                id: j,
+                name: this.names[indexer],
+                start: first.toUTCString(),
+                color: this.colors[indexer],
+                timed: 1,
+              })
+            }
           }
         }
         console.log(events)
         this.events = events
+        this.today_event = tevent
       },
       getEventColor (event) {
         return event.color
+      },
+      showingEvent () {
+        alert('This is my test alert')
       },
       rnd (a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
