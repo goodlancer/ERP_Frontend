@@ -16,6 +16,12 @@
       >
         <v-icon>mdi-chevron-left</v-icon>
       </v-btn>
+      <span
+        v-if="$refs.calendar"
+        class="text-h3"
+      >
+        {{ $refs.calendar.title }}
+      </span>
       <v-btn
         icon
         class="ma-2"
@@ -34,6 +40,8 @@
               :event-overlap-mode="mode"
               :event-overlap-threshold="30"
               :event-color="getEventColor"
+              :dark=true
+              color="primary"
               @change="getEvents"
               @dayclick="showingEvent"
              >
