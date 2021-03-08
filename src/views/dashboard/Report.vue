@@ -9,6 +9,20 @@
           cols="12"
           md="10"
         >
+        <v-btn
+        icon
+        class="ma-2"
+        @click="$refs.calendar.prev()"
+      >
+        <v-icon>mdi-chevron-left</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        class="ma-2"
+        @click="$refs.calendar.next()"
+      >
+        <v-icon>mdi-chevron-right</v-icon>
+      </v-btn>
           <v-sheet height="600">
             <v-calendar
               ref="calendar"
@@ -20,10 +34,12 @@
               :event-overlap-mode="mode"
               :event-overlap-threshold="30"
               :event-color="getEventColor"
-              v-on="on"
               @change="getEvents"
               @dayclick="showingEvent"
-            >
+             >
+            <template>
+              <div>aaa</div>
+            </template>
             </v-calendar>
           </v-sheet>
           <v-card
