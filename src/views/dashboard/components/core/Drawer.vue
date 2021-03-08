@@ -124,12 +124,12 @@
         {
           icon: 'mdi-audio-video',
           title: 'Tutorial',
-          to: '/',
+          to: '/tutorial',
         },
         {
           icon: 'mdi-account-heart',
           title: 'Messages',
-          to: '/',
+          to: '/message',
         },
         // {
         //   icon: 'mdi-account',
