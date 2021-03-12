@@ -1,10 +1,13 @@
 <template>
-  <v-container>
-    <v-row>
+  <v-container
+    class="fill-height"
+    style="display: block;"
+  >
+    <v-row class="fill-height">
       <v-col
         cols="10"
       >
-        <v-row>
+        <v-row class="fill-height">
           <v-col
             cols="4"
           >
@@ -17,9 +20,17 @@
                 <v-list-item
                   v-for="(item, i) in items"
                   :key="i"
+                  @click="userClick(item.text)"
                 >
                   <v-list-item-icon>
-                    <v-icon v-text="item.icon"></v-icon>
+                    <v-avatar
+                      color="red"
+                      size="36"
+                    >
+                      <span class="white--text">
+                       {{item.text[0]}}
+                      </span>
+                    </v-avatar>
                   </v-list-item-icon>
                   <v-list-item-content>
                     <v-list-item-title v-text="item.text"></v-list-item-title>
@@ -28,39 +39,70 @@
               </v-list-item-group>
             </v-list>
           </v-col>
-          <v-cols
+          <v-col
             cols="8"
           >
             <v-col
-              cols="12"            
-            >
-              <v-card>
-                <v-chip
-                  close-icon="mdi-delete"
-                  color="green"
-                  filter
-                  label
-                  link
-                  pill
-                ></v-chip>
-              </v-card>
-            </v-col>
-            <v-col
               cols="12"
+              class="fill-height"
             >
-              <v-text-field
-                v-model="message"
-                :append-outer-icon="message ? 'mdi-send' : 'mdi-send'"
-                :prepend-icon="icon"
-                filled
-                clear-icon="mdi-close-circle"
-                clearable
-                label="Message"
-                type="text"
-                @click:clear="clearMessage"
-              ></v-text-field>
+              <v-container
+                class="fill-height"
+              >
+                <v-row
+                  class="fill-height"
+                  align="end"
+                  style="border: 1px solid"
+                >
+                  <v-col
+                    cols="12"
+                  >
+                    <div
+                      v-for="(item, index) in chat"
+                      :key="index"
+                      :class="['d-flex flex-row align-center my-2', item.from == 'user' ? 'justify-end': null]"
+                    >
+                      <span
+                        v-if="item.from == 'user'"
+                        class="blue--text mr-3"
+                      >
+                        {{ item.msg }}
+                      </span>
+                      <v-avatar
+                        :color="item.from == 'user' ? 'indigo': 'red'"
+                        size="36"
+                      >
+                        <span class="white--text">
+                          {{ item.from[0] }}
+                        </span>
+                      </v-avatar>
+                      <span
+                        v-if="item.from != 'user'"
+                        class="blue--text ml-3"
+                      >
+                        {{ item.msg }}
+                      </span>
+                    </div>
+                  </v-col>
+                </v-row>
+                <v-text-field
+                  v-model="message"
+                  :append-outer-icon="message ? 'mdi-send' : 'mdi-send'"
+                  :prepend-icon="icon"
+                  filled
+                  clear-icon="mdi-close-circle"
+                  clearable
+                  label="Message"
+                  type="text"
+                  @click:append="toggleMarker"
+                  @click:append-outer="sendMessage"
+                  @click:prepend="changeIcon"
+                  @click:clear="clearMessage"
+                  class="mt-5"
+                ></v-text-field>
+              </v-container>
             </v-col>
-          </v-cols>
+          </v-col>
         </v-row>
       </v-col>
       <v-col
@@ -71,14 +113,13 @@
   </v-container>
 </template>
 <script>
-import Card from '../../components/base/Card.vue'
   export default {
-  components: { Card },
     name: 'Message',
     data () {
       return {
+        chat: [],
         show: false,
-        message: 'Hey!',
+        message: '',
         marker: true,
         iconIndex: 0,
         icons: [
@@ -97,6 +138,7 @@ import Card from '../../components/base/Card.vue'
           { text: 'Audience', icon: 'mdi-account' },
           { text: 'Conversions', icon: 'mdi-flag' },
         ],
+        selectedUser: '',
       }
     },
     computed: {
@@ -109,8 +151,19 @@ import Card from '../../components/base/Card.vue'
         this.marker = !this.marker
       },
       sendMessage () {
+        this.chat.push({
+          from: 'user',
+          msg: this.message,
+        })
+        this.addReply()
         this.resetIcon()
         this.clearMessage()
+      },
+      addReply () {
+        this.chat.push({
+          from: this.selectedUser,
+          msg: 'Ok, got it',
+        })
       },
       clearMessage () {
         this.message = ''
@@ -122,6 +175,10 @@ import Card from '../../components/base/Card.vue'
         this.iconIndex === this.icons.length - 1
           ? this.iconIndex = 0
           : this.iconIndex++
+      },
+      userClick (user) {
+        console.log(user)
+        this.selectedUser = user
       },
     },
   }
