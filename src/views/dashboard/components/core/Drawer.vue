@@ -108,7 +108,7 @@
         },
         {
           icon: 'mdi-account-group',
-          title: 'Ogenization',
+          title: 'Organization',
           to: '/orgenization',
         },
         {
