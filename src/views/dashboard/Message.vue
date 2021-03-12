@@ -31,7 +31,35 @@
           <v-cols
             cols="8"
           >
-            lsikjd
+            <v-col
+              cols="12"            
+            >
+              <v-card>
+                <v-chip
+                  close-icon="mdi-delete"
+                  color="green"
+                  filter
+                  label
+                  link
+                  pill
+                ></v-chip>
+              </v-card>
+            </v-col>
+            <v-col
+              cols="12"
+            >
+              <v-text-field
+                v-model="message"
+                :append-outer-icon="message ? 'mdi-send' : 'mdi-send'"
+                :prepend-icon="icon"
+                filled
+                clear-icon="mdi-close-circle"
+                clearable
+                label="Message"
+                type="text"
+                @click:clear="clearMessage"
+              ></v-text-field>
+            </v-col>
           </v-cols>
         </v-row>
       </v-col>
@@ -43,10 +71,26 @@
   </v-container>
 </template>
 <script>
+import Card from '../../components/base/Card.vue'
   export default {
+  components: { Card },
     name: 'Message',
     data () {
       return {
+        show: false,
+        message: 'Hey!',
+        marker: true,
+        iconIndex: 0,
+        icons: [
+          'mdi-emoticon',
+          'mdi-emoticon-cool',
+          'mdi-emoticon-dead',
+          'mdi-emoticon-excited',
+          'mdi-emoticon-happy',
+          'mdi-emoticon-neutral',
+          'mdi-emoticon-sad',
+          'mdi-emoticon-tongue',
+        ],
         selectedItem: 1,
         items: [
           { text: 'Real-Time', icon: 'mdi-clock' },
@@ -54,6 +98,31 @@
           { text: 'Conversions', icon: 'mdi-flag' },
         ],
       }
+    },
+    computed: {
+      icon () {
+        return this.icons[this.iconIndex]
+      },
+    },
+    methods: {
+      toggleMarker () {
+        this.marker = !this.marker
+      },
+      sendMessage () {
+        this.resetIcon()
+        this.clearMessage()
+      },
+      clearMessage () {
+        this.message = ''
+      },
+      resetIcon () {
+        this.iconIndex = 0
+      },
+      changeIcon () {
+        this.iconIndex === this.icons.length - 1
+          ? this.iconIndex = 0
+          : this.iconIndex++
+      },
     },
   }
 </script>
