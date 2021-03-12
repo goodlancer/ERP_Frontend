@@ -62,12 +62,13 @@
                       :key="index"
                       :class="['d-flex flex-row align-center my-2', item.from == 'user' ? 'justify-end': null]"
                     >
-                      <span
+                      <v-chip
                         v-if="item.from == 'user'"
-                        class="blue--text mr-3"
+                        class="blue--text mr-3 ma-2"
+                        label
                       >
                         {{ item.msg }}
-                      </span>
+                      </v-chip>
                       <v-avatar
                         :color="item.from == 'user' ? 'indigo': 'red'"
                         size="36"
@@ -76,12 +77,13 @@
                           {{ item.from[0] }}
                         </span>
                       </v-avatar>
-                      <span
+                      <v-chip
                         v-if="item.from != 'user'"
-                        class="blue--text ml-3"
+                        class="blue--text ma-2 ml-3"
+                        label
                       >
                         {{ item.msg }}
-                      </span>
+                      </v-chip>
                     </div>
                   </v-col>
                 </v-row>
