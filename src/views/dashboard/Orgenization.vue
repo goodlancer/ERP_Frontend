@@ -38,7 +38,7 @@
               fab
               small
               color="gray"
-              @click="addWebstie"
+              @click="dialog=true"
             >
               <v-icon>mdi-plus</v-icon>
             </v-btn>
@@ -121,7 +121,12 @@
                 cols="7"
               >
                 <v-card class="py-3 px-3 fill-height">
-                  User details
+                  <v-card-title>
+                    User Name
+                  </v-card-title>
+                  <v-card-text>
+                    This is Designer have 7 years of strong experince
+                  </v-card-text>
                 </v-card>
               </v-col>
             </v-row>
@@ -133,12 +138,62 @@
         md="2"
       >
       </v-col>
+      <v-dialog
+        v-model="dialog"
+        persistent
+        max-width="600px"
+      >
+        <template>
+          <v-card>
+            <v-card-title>
+              Add SiteName
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col
+                    cols="12"
+                  >
+                    <v-text-field
+                      v-model="webstie_Name"
+                      label="Website Name"
+                      required
+                    >
+                    </v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-action>
+              <v-spacer></v-spacer>
+              <v-btn
+                class="mx-3 my-2"
+                color="blue darken-1"
+                outlined
+                @click="dialog=false"
+              >
+                Close
+              </v-btn>
+              <v-btn
+                class="mx-3 my-2"
+                color="blue darken-1"
+                outlined
+                @click="addWebstie"
+              >
+                Add
+              </v-btn>
+            </v-card-action>
+          </v-card>
+        </template>
+      </v-dialog>
     </v-row>
   </v-container>
 </template>
 <script>
   export default {
     data: () => ({
+      dialog: false,
+      webstie_Name: '',
       websites: [
         {
           id: 1,
@@ -177,10 +232,14 @@
     }),
     methods: {
       addWebstie () {
-        this.websites.push({
-          id: 1,
-          websiteName: 'Website ABC',
-        })
+        if (this.webstie_Name !== '') {
+          this.websites.push({
+            id: 1,
+            websiteName: this.webstie_Name,
+          })
+          this.webstie_Name = ''
+        }
+        this.dialog = false
       },
     },
   }
