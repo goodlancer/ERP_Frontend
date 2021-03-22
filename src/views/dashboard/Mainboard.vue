@@ -34,43 +34,24 @@
                cols="3"
              >
                 Keyword
-                <v-card class="px-3 py-3">
-                    HOW TO BBQ Ribs
-                </v-card>
-                <v-card class="px-3 py-3">
-                    HOW TO BBQ Ribs
-                </v-card>
-                <v-card class="px-3 py-3">
-                    HOW TO BBQ Ribs
-                </v-card>
-                <v-card class="px-3 py-3">
-                    HOW TO BBQ Ribs
-                </v-card>
-                <v-card class="px-3 py-3">
-                    HOW TO BBQ Ribs
+                <v-card
+                  class="px-3 py-3"
+                  v-for="keyword in keywords"
+                  :key="keyword.id"
+                >
+                  {{keyword.keyword}}
                 </v-card>
              </v-col>
              <v-col
                cols="3"
              >
                 Writer
-                <v-card class="px-3 py-3">
-                    Jone Henny
-                </v-card>
-                <v-card class="px-3 py-3">
-                    Jone Henny
-                </v-card>
-                <v-card class="px-3 py-3">
-                    Jone Henny
-                </v-card>
-                <v-card class="px-3 py-3">
-                    Jone Henny
-                </v-card>
-                <v-card class="px-3 py-3">
-                    Jone Henny
-                </v-card>
-                <v-card class="px-3 py-3">
-                    Jone Henny
+                <v-card
+                  class="px-3 py-3"
+                  v-for="keyword in keywords"
+                  :key="keyword.id"
+                >
+                  {{keyword.writer}}
                 </v-card>
              </v-col>
              <v-col
@@ -298,7 +279,25 @@
   </v-container>
 </template>
 <script>
+  import axios from 'axios'
   export default {
     name: 'MainDashBoard',
+    data () {
+      return {
+        keywords: [],
+      }
+    },
+    mounted () {
+      this.getKeywords()
+    },
+    methods: {
+      getKeywords () {
+        console.log('work')
+        axios.get('http://localhost:3000/v1/keywords').then((response) => {
+          console.log(response.data.keywords)
+          this.keywords = response.data.keywords
+        })
+      },
+    },
   }
 </script>

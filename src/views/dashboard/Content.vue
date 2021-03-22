@@ -49,7 +49,7 @@
                     Keyword Phrase
                     </th>
                     <th class="primary--text">
-                    Country
+                    Writer
                     </th>
                     <th class="primary--text">
                     Link
@@ -58,71 +58,23 @@
                     Status
                     </th>
                     <th class="primary--text">
-                    Link to
+                    Date
                     </th>
                 </tr>
                 </thead>
-
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Dakota Rice</td>
-                    <td>Niger</td>
-                    <td>Oud-Turnhout</td>
-                    <td class="text-right">
-                    $36,738
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>2</td>
-                    <td>Minverva Hooper</td>
-                    <td>Curaçao</td>
-                    <td>Sinaas-Waas</td>
-                    <td class="text-right">
-                    $23,789
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>3</td>
-                    <td>Sage Rodriguez</td>
-                    <td>Netherlands</td>
-                    <td>Baileux</td>
-                    <td class="text-right">
-                    $56,142
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>4</td>
-                    <td>Philip Chaney</td>
-                    <td>Korea, South</td>
-                    <td>Overland Park</td>
-                    <td class="text-right">
-                    $38,735
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>5</td>
-                    <td>Doris Greene</td>
-                    <td>Malawi</td>
-                    <td>Feldkirchen in Kärnten</td>
-                    <td class="text-right">
-                    $63,542
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>6</td>
-                    <td>Mason Porter</td>
-                    <td>Chile</td>
-                    <td>Gloucester</td>
-                    <td class="text-right">
-                    $78,615
-                    </td>
-                </tr>
+                  <tr
+                    v-for="keyword in keywords"
+                    :key="keyword.id"
+                  >
+                      <td>{{keyword.keyword}}</td>
+                      <td>{{keyword.writer}}</td>
+                      <td>{{keyword.links}}</td>
+                      <td>{{(keyword.status)? 'Complete' : 'Incomplete'}}</td>
+                      <td class="text-center">
+                      {{keyword.dateCompleted}}
+                      </td>
+                  </tr>
                 </tbody>
               </v-simple-table>
             </v-col>
@@ -135,3 +87,28 @@
     </v-row>
   </v-container>
 </template>
+
+<script>
+  import axios from 'axios'
+  export default {
+    name: 'Content',
+    data () {
+      return {
+        keywords: [],
+        websites: [],
+      }
+    },
+    mounted () {
+      this.getKeywords()
+    },
+    methods: {
+      getKeywords () {
+        console.log('work')
+        axios.get('http://localhost:3000/v1/keywords').then((response) => {
+          console.log(response.data.keywords)
+          this.keywords = response.data.keywords
+        })
+      },
+    },
+  }
+</script>
