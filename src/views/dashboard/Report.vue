@@ -101,7 +101,6 @@
           const first = new Date()
           const tmpdate = (first.getDate() - i)
           first.setDate(tmpdate)
-          console.log(first + '/' + i + '/' + tmpdate)
           //   var indexer = this.rnd(0, this.names.length - 1)
           var indexer = 0
           for (let j = 0; j < this.names.length - 1; j++) {
@@ -126,7 +125,6 @@
             }
           }
         }
-        console.log(events)
         this.events = events
         this.today_event = tevent
       },
