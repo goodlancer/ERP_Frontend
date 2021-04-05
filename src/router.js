@@ -93,5 +93,9 @@ export default new Router({
         },
       ],
     },
+    {
+      path: '/Auth',
+      component: () => import('@/views/Login'),
+    },
   ],
 })
