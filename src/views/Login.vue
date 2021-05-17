@@ -39,7 +39,7 @@
                               <v-form class="text-h3">
                                   <v-text-field
                                     v-if="!options.isLoggingIn"
-                                    v-model="user.name"
+                                    v-model="user.username"
                                     prepend-icon="mdi-account"
                                     label="Name"
                                   >
@@ -67,7 +67,7 @@
                                   </v-checkbox>
                                   <v-btn
                                     v-if="options.isLoggingIn"
-                                    @click.prevent=""
+                                    @click.prevent="LoginMethod"
                                     block="block"
                                     color="#000"
                                     class="text-h3 mt-3"
@@ -81,7 +81,7 @@
                                     class="text-h3 mt-3"
                                     type="submit"
                                     color="#000"
-                                    @click.prevent="options.isLoggingIn = true"
+                                    @click.prevent="SignupMethod"
                                   >
                                   Sign up
                                   </v-btn>
@@ -109,19 +109,62 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   export default {
     data () {
       return {
         user: {
           email: '',
           password: '',
-          name: '',
+          username: '',
         },
         options: {
           isLoggingIn: true,
           shouldStayLoggedIn: true,
         },
       }
+    },
+    methods: {
+      ...mapActions([
+        'loginUser',
+        'SignupUser',
+      ]),
+      SignupMethod () {
+        const {
+          email,
+          password,
+          username,
+        } = this.user
+        this.SignupUser({
+          email,
+          password,
+          username,
+        }).then((result) => {
+          console.log(result)
+          this.$router.replace('/')
+        }).catch((message) => {
+          alert(message)
+        }).finally(() => {
+          // this.loading = false
+        })
+      },
+      LoginMethod () {
+        const {
+          email,
+          password,
+        } = this.user
+        this.loginUser({
+          email,
+          password,
+        }).then((result) => {
+          console.log(result)
+          this.$router.replace('/')
+        }).catch((message) => {
+          alert(message)
+        }).finally(() => {
+          // this.loading = false
+        })
+      },
     },
   }
 </script>

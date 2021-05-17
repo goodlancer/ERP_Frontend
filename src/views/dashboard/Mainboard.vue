@@ -292,9 +292,7 @@
     },
     methods: {
       getKeywords () {
-        console.log('work')
-        axios.get('http://localhost:3000/v1/keywords').then((response) => {
-          console.log(response.data.keywords)
+        axios.get('http://3.20.232.245:3000/v1/keywords').then((response) => {
           this.keywords = response.data.keywords
         })
       },
