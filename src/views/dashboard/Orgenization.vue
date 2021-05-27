@@ -190,6 +190,7 @@
   </v-container>
 </template>
 <script>
+  import { mapActions } from 'vuex'
   export default {
     data: () => ({
       dialog: false,
@@ -231,6 +232,9 @@
       ],
     }),
     methods: {
+      ...mapActions([
+        'addWebsite'
+      ]),
       addWebstie () {
         if (this.webstie_Name !== '') {
           this.websites.push({

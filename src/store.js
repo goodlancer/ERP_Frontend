@@ -1,10 +1,12 @@
+// import { resolve } from 'core-js/fn/promise'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
 const axios = require('axios')
-const API = 'http://3.20.232.245:3000'
+// const API = 'http://3.20.232.245:3000'
+const API = 'http://localhost:3000'
 
 export default new Vuex.Store({
   state: {
@@ -63,6 +65,34 @@ export default new Vuex.Store({
         })
       })
     },
+    addWebsite: function ({name}) {
+      return new Promise((resolve, reject) => {
+        axios.post(`${API}/v1/website`, {name: name}).then((res) => {
+          console.log(res)
+          if (res.data.success) {
+            resolve(res.data.success)
+          } else {
+            reject(new Error(res.data.msg))
+          }
+        }).catch((err) => {
+          reject(new Error(err))
+        })
+      })
+    },
+    getWebsite: function () {
+      return new Promise((resolve, reject) => {
+        axios.get(`${API}/v1/website`).then((res) => {
+          console.log(res)
+          if (res.data.success) {
+            resolve(res.data.website)
+          } else {
+            reject(new Error(res.data.msg))
+          }
+        }).catch((err) => {
+          reject(new Error(err))
+        })
+      })
+    }
   },
   getters: {
     isAuthenticated: state => !!state.token,
