@@ -23,12 +23,6 @@
             >
               {{ website.websiteName }}
             </v-chip>
-            <v-chip
-              class="ma-2"
-              color="green"
-            >
-              WebSite CDE
-            </v-chip>
           </v-col>
           <v-col
             cols="2"
@@ -195,16 +189,7 @@
     data: () => ({
       dialog: false,
       webstie_Name: '',
-      websites: [
-        {
-          id: 1,
-          websiteName: 'Website ABC',
-        },
-        {
-          id: 2,
-          websiteName: 'Website DEF',
-        },
-      ],
+      websites: [],
       initiallyOpen: ['public'],
       websiteItem: [
         {
@@ -231,17 +216,42 @@
         },
       ],
     }),
+    mounted () {
+      this.getWebsites()
+    },
     methods: {
       ...mapActions([
-        'addWebsite'
+        'addWebsite',
+        'getWebsite',
       ]),
+      getWebsites () {
+        this.getWebsite().then((res) => {
+          console.log(res)
+          this.websites = []
+          res.map((webitem) => {
+            this.websites.push({
+              id: webitem._id,
+              websiteName: webitem.name,
+            })
+          })
+        })
+      },
       addWebstie () {
         if (this.webstie_Name !== '') {
-          this.websites.push({
-            id: 1,
-            websiteName: this.webstie_Name,
+          const name = this.webstie_Name
+          this.addWebsite({ name }).then((res) => {
+            console.log(res)
+            alert('Website Additional is completed')
+            // this.webstie_Name = ''
+            this.getWebsites()
+          }).catch((err) => {
+            console.log(err)
+            alert('Faild')
           })
-          this.webstie_Name = ''
+          // this.websites.push({
+          //   id: 1,
+          //   websiteName: this.webstie_Name,
+          // })
         }
         this.dialog = false
       },

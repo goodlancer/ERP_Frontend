@@ -65,9 +65,11 @@ export default new Vuex.Store({
         })
       })
     },
-    addWebsite: function ({name}) {
+    addWebsite: function (context, { name }) {
+      console.log('myworking')
+      console.log(name)
       return new Promise((resolve, reject) => {
-        axios.post(`${API}/v1/website`, {name: name}).then((res) => {
+        axios.post(`${API}/v1/website`, { name: name }).then((res) => {
           console.log(res)
           if (res.data.success) {
             resolve(res.data.success)
@@ -92,7 +94,7 @@ export default new Vuex.Store({
           reject(new Error(err))
         })
       })
-    }
+    },
   },
   getters: {
     isAuthenticated: state => !!state.token,
