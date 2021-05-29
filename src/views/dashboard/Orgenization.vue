@@ -51,6 +51,7 @@
                 small
                 tile
                 color="warning"
+                @click="openAddMember(1)"
               >
                 <v-icon left>
                   mdi-plus
@@ -62,6 +63,7 @@
                 small
                 tile
                 color="warning"
+                @click="openAddMember(2)"
               >
                 <v-icon left>
                   mdi-plus
@@ -73,22 +75,12 @@
                 small
                 tile
                 color="warning"
+                @click="openAddMember(3)"
               >
                 <v-icon left>
                   mdi-plus
                 </v-icon>
                 Writer
-              </v-btn>
-              <v-btn
-                class="mx-5"
-                small
-                tile
-                color="warning"
-              >
-                <v-icon left>
-                  mdi-plus
-                </v-icon>
-                Other
               </v-btn>
             </v-row>
             <v-row>
@@ -102,7 +94,7 @@
                   big
                   color="blue"
                   :items="websiteItem"
-                  item-key="name"
+                  item-key="index"
                   open-on-click
                 >
                   <template v-slot:prepend="{ item }">
@@ -197,6 +189,20 @@
                   <v-col
                     cols="12"
                   >
+                    <v-select
+                      v-if="member.role === 3"
+                      v-model="member.releatedId"
+                      :items="releatedMembers"
+                      item-text="name"
+                      item-value="_id"
+                      label="Website Name"
+                      required
+                    >
+                    </v-select>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                  >
                     <v-text-field
                       v-model="member.name"
                       label="Website Name"
@@ -210,7 +216,7 @@
                     <v-textarea
                       name="input-7-1"
                       label="Default style"
-                      :value="member.Detail"
+                      v-model="member.Detail"
                       hint="Hint text"
                     ></v-textarea>
                   </v-col>
@@ -223,7 +229,7 @@
                 class="mx-3 my-2"
                 color="blue darken-1"
                 outlined
-                @click="dialog=false"
+                @click="MemberDialog=false"
               >
                 Close
               </v-btn>
@@ -231,7 +237,7 @@
                 class="mx-3 my-2"
                 color="blue darken-1"
                 outlined
-                @click="addWebstie"
+                @click="addMembers"
               >
                 Add
               </v-btn>
@@ -247,9 +253,11 @@
   export default {
     data: () => ({
       dialog: false,
-      webstie_Name: '',
       MemberDialog: false,
+      webstie_Name: '',
       member: {
+        orgenizeId: '',
+        releatedId: 0,
         name: '',
         Detail: '',
         role: 0,
@@ -259,24 +267,34 @@
       initiallyOpen: [
         'public',
       ],
+      releatedMembers: [],
+      adminMember: {},
+      editorMember: [],
+      writerMember: [],
       websiteItem: [
         {
           name: 'Admin: Bob Slod',
+          index: 1,
           children: [
             {
               name: 'Editor: Dan Kemp',
+              index: 3,
               children: [
                 {
                   name: 'writer: JusttimOveloder',
+                  index: 2,
                 },
                 {
                   name: 'writer: Gray Flink',
+                  index: 4,
                 },
                 {
                   name: 'writer: Aron Think',
+                  index: 5,
                 },
                 {
                   name: 'writer: Chrise Kring',
+                  index: 6,
                 },
               ],
             },
@@ -336,16 +354,50 @@
               case 1:
                 this.websiteItem.push({
                   name: 'admin: ' + ele.name,
+                  index: ele._id,
                   children: [],
                 })
+                this.adminMember = ele
                 break
               case 2:
+                this.websiteItem[0].children.push({
+                  name: 'editor: ' + ele.name,
+                  index: ele._id,
+                  children: [],
+                })
+                this.editorMember.push(ele)
                 break
               case 3:
+                this.writerMember.push(ele)
                 break
             }
           })
         })
+      },
+      openAddMember (role) {
+        this.member = {
+          orgenizeId: this.selectedWebsite,
+          releatedId: 0,
+          name: '',
+          Detail: '',
+          role: role,
+        }
+        this.releatedMembers = []
+        switch (role) {
+          case 2:
+            this.member.releatedId = this.adminMember.id
+            break
+          case 3:
+            this.releatedMembers = this.editorMember
+            break
+        }
+        console.log('working')
+        console.log(this.releatedMembers)
+        this.MemberDialog = true
+      },
+      addMembers () {
+        alert('this is test alert')
+        console.log(this.member)
       },
     },
   }
