@@ -89,7 +89,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import { mapActions } from 'vuex'
   export default {
     name: 'Content',
     data () {
@@ -102,11 +102,13 @@
       this.getKeywords()
     },
     methods: {
+      ...mapActions([
+        'getkeywords',
+      ]),
       getKeywords () {
         console.log('work')
-        axios.get('http://3.20.232.245:3000/v1/keywords').then((response) => {
-          console.log(response.data.keywords)
-          this.keywords = response.data.keywords
+        this.getkeywords().then((res) => {
+          this.keywords = res
         })
       },
     },

@@ -66,6 +66,20 @@ export default new Vuex.Store({
         })
       })
     },
+    getkeywords: function () {
+      return new Promise((resolve, reject) => {
+        axios.get(`${API}/v1/keywords`).then((res) => {
+          console.log(res)
+          if (res.data.success) {
+            resolve(res.data.keywords)
+          } else {
+            reject(new Error(res.data.msg))
+          }
+        }).catch((err) => {
+          reject(new Error(err))
+        })
+      })
+    },
     addWebsite: function (context, { name }) {
       console.log('myworking')
       console.log(name)

@@ -393,6 +393,7 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
   export default {
     name: 'DashboardDashboard',
 
@@ -591,8 +592,15 @@
         },
       }
     },
-
+    mounted () {
+      this.getkeywords().then((res) => {
+        console.log(res)
+      })
+    },
     methods: {
+      ...mapActions([
+        'getkeywords',
+      ]),
       complete (index) {
         this.list[index] = !this.list[index]
       },
