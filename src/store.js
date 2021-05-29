@@ -124,6 +124,34 @@ export default new Vuex.Store({
         })
       })
     },
+    addTutorial: function (context, data) {
+      return new Promise((resolve, reject) => {
+        axios.post(`${API}/v1/tutorial`, data).then((res) => {
+          console.log(res)
+          if (res.data.success) {
+            resolve(res.data.success)
+          } else {
+            reject(new Error(res.data.msg))
+          }
+        }).catch((err) => {
+          reject(new Error(err))
+        })
+      })
+    },
+    getTutorials: function () {
+      return new Promise((resolve, reject) => {
+        axios.get(`${API}/v1/tutorial`).then((res) => {
+          console.log(res)
+          if (res.data.success) {
+            resolve(res.data.tutorial)
+          } else {
+            reject(new Error(res.data.msg))
+          }
+        }).catch((err) => {
+          reject(new Error(err))
+        })
+      })
+    },
   },
   getters: {
     isAuthenticated: state => !!state.token,

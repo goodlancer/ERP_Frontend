@@ -95,12 +95,16 @@
                   color="blue"
                   :items="websiteItem"
                   item-key="index"
-                  open-on-click
+                  @click="viewMember(item-key)"
                 >
-                  <template v-slot:prepend="{ item }">
+                  <template
+                    slot="label"
+                    slot-scope="{ item }"
+                  >
                     <v-icon v-if="item.name">
                       mdi-account
                     </v-icon>
+                    <a @click="viewMember(item.index)"> {{ item.name }} </a>
                   </template>
                 </v-treeview>
               </v-col>
@@ -109,10 +113,10 @@
               >
                 <v-card class="py-3 px-3 fill-height">
                   <v-card-title>
-                    User Name
+                    {{ viewableMember.name }}
                   </v-card-title>
                   <v-card-text>
-                    This is Designer have 7 years of strong experince
+                    {{ viewableMember.detail }}
                   </v-card-text>
                 </v-card>
               </v-col>
@@ -216,7 +220,7 @@
                     <v-textarea
                       name="input-7-1"
                       label="Default style"
-                      v-model="member.Detail"
+                      v-model="member.detail"
                       hint="Hint text"
                     ></v-textarea>
                   </v-col>
@@ -255,11 +259,15 @@
       dialog: false,
       MemberDialog: false,
       webstie_Name: '',
+      viewableMember: {
+        name: '',
+        detail: '',
+      },
       member: {
         orgenizeId: '',
         releatedId: 0,
         name: '',
-        Detail: '',
+        detail: '',
         role: 0,
       },
       selectedWebsite: '',
@@ -268,9 +276,9 @@
         'public',
       ],
       releatedMembers: [],
-      adminMember: {},
+      adminMember: null,
       editorMember: [],
-      writerMember: [],
+      allMebers: [],
       websiteItem: [
         {
           name: 'Admin: Bob Slod',
@@ -309,6 +317,7 @@
       ...mapActions([
         'addWebsite',
         'getWebsite',
+        'addmember',
         'getmember',
       ]),
       getWebsites () {
@@ -321,6 +330,7 @@
               websiteName: webitem.name,
             })
           })
+          this.selectWeb(this.websites[0].id)
         })
       },
       addWebstie () {
@@ -343,32 +353,41 @@
         this.dialog = false
       },
       selectWeb (id) {
-        alert(id)
         this.selectedWebsite = id
         const data = { id: id }
         this.getmember(data).then((res) => {
           console.log(res)
+          this.websiteItem = [{
+            name: 'Admin: ',
+            index: 0,
+            children: [],
+          }]
+          this.adminMember = null
+          this.editorMember = []
+          this.allMebers = res
           res.map((ele) => {
             console.log(ele)
             switch (ele.role) {
               case 1:
-                this.websiteItem.push({
-                  name: 'admin: ' + ele.name,
-                  index: ele._id,
-                  children: [],
-                })
+                this.websiteItem[0].name = 'Admin: ' + ele.name
+                this.websiteItem[0].index = ele._id
                 this.adminMember = ele
                 break
               case 2:
                 this.websiteItem[0].children.push({
-                  name: 'editor: ' + ele.name,
+                  name: 'Editor: ' + ele.name,
                   index: ele._id,
                   children: [],
                 })
                 this.editorMember.push(ele)
                 break
               case 3:
-                this.writerMember.push(ele)
+                var found = this.websiteItem[0].children.find(element => element.index === ele.releatedId)
+                console.log(found)
+                found.children.push({
+                  name: 'Writer: ' + ele.name,
+                  index: ele._id,
+                })
                 break
             }
           })
@@ -379,13 +398,13 @@
           orgenizeId: this.selectedWebsite,
           releatedId: 0,
           name: '',
-          Detail: '',
+          detail: '',
           role: role,
         }
         this.releatedMembers = []
         switch (role) {
           case 2:
-            this.member.releatedId = this.adminMember.id
+            this.member.releatedId = this.adminMember._id
             break
           case 3:
             this.releatedMembers = this.editorMember
@@ -394,10 +413,27 @@
         console.log('working')
         console.log(this.releatedMembers)
         this.MemberDialog = true
+        if (this.adminMember && role === 1) {
+          alert('The admin is exists')
+          this.MemberDialog = false
+        }
       },
       addMembers () {
-        alert('this is test alert')
         console.log(this.member)
+        this.addmember(this.member).then((res) => {
+          console.log(res)
+          if (res === true) {
+            alert('Completed')
+            this.selectWeb(this.selectedWebsite)
+            this.MemberDialog = false
+          }
+        })
+      },
+      viewMember (index) {
+        var viewItem = this.allMebers.find(element => element._id === index)
+        console.log(viewItem)
+        this.viewableMember.name = viewItem.name
+        this.viewableMember.detail = viewItem.detail
       },
     },
   }
