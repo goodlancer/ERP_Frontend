@@ -20,6 +20,7 @@
               :key="website.id"
               class="ma-2"
               color="green"
+              @click="selectWeb(website.id)"
             >
               {{ website.websiteName }}
             </v-chip>
@@ -180,6 +181,64 @@
           </v-card>
         </template>
       </v-dialog>
+      <v-dialog
+        v-model="MemberDialog"
+        persistent
+        max-width="600px"
+      >
+        <template>
+          <v-card>
+            <v-card-title>
+              Add Member
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col
+                    cols="12"
+                  >
+                    <v-text-field
+                      v-model="member.name"
+                      label="Website Name"
+                      required
+                    >
+                    </v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                  >
+                    <v-textarea
+                      name="input-7-1"
+                      label="Default style"
+                      :value="member.Detail"
+                      hint="Hint text"
+                    ></v-textarea>
+                  </v-col>
+                 </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-action>
+              <v-spacer></v-spacer>
+              <v-btn
+                class="mx-3 my-2"
+                color="blue darken-1"
+                outlined
+                @click="dialog=false"
+              >
+                Close
+              </v-btn>
+              <v-btn
+                class="mx-3 my-2"
+                color="blue darken-1"
+                outlined
+                @click="addWebstie"
+              >
+                Add
+              </v-btn>
+            </v-card-action>
+          </v-card>
+        </template>
+      </v-dialog>
     </v-row>
   </v-container>
 </template>
@@ -189,8 +248,17 @@
     data: () => ({
       dialog: false,
       webstie_Name: '',
+      MemberDialog: false,
+      member: {
+        name: '',
+        Detail: '',
+        role: 0,
+      },
+      selectedWebsite: '',
       websites: [],
-      initiallyOpen: ['public'],
+      initiallyOpen: [
+        'public',
+      ],
       websiteItem: [
         {
           name: 'Admin: Bob Slod',
@@ -223,6 +291,7 @@
       ...mapActions([
         'addWebsite',
         'getWebsite',
+        'getmember',
       ]),
       getWebsites () {
         this.getWebsite().then((res) => {
@@ -254,6 +323,29 @@
           // })
         }
         this.dialog = false
+      },
+      selectWeb (id) {
+        alert(id)
+        this.selectedWebsite = id
+        const data = { id: id }
+        this.getmember(data).then((res) => {
+          console.log(res)
+          res.map((ele) => {
+            console.log(ele)
+            switch (ele.role) {
+              case 1:
+                this.websiteItem.push({
+                  name: 'admin: ' + ele.name,
+                  children: [],
+                })
+                break
+              case 2:
+                break
+              case 3:
+                break
+            }
+          })
+        })
       },
     },
   }

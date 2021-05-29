@@ -1,4 +1,5 @@
 // import { resolve } from 'core-js/fn/promise'
+// import { reject, resolve } from 'core-js/fn/promise'
 import Vue from 'vue'
 import Vuex from 'vuex'
 
@@ -87,6 +88,34 @@ export default new Vuex.Store({
           console.log(res)
           if (res.data.success) {
             resolve(res.data.website)
+          } else {
+            reject(new Error(res.data.msg))
+          }
+        }).catch((err) => {
+          reject(new Error(err))
+        })
+      })
+    },
+    addmember: function (context, data) {
+      return new Promise((resolve, reject) => {
+        axios.post(`${API}/v1/member`, data).then((res) => {
+          console.log(res)
+          if (res.data.success) {
+            resolve(res.data.success)
+          } else {
+            reject(new Error(res.data.msg))
+          }
+        }).catch((err) => {
+          reject(new Error(err))
+        })
+      })
+    },
+    getmember: function (context, data) {
+      return new Promise((resolve, reject) => {
+        axios.post(`${API}/v1/organizemember`, data).then((res) => {
+          console.log(res)
+          if (res.data.success) {
+            resolve(res.data.getOrganize)
           } else {
             reject(new Error(res.data.msg))
           }
