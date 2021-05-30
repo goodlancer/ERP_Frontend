@@ -58,6 +58,7 @@
                cols="3"
              >
                 Site
+
                 <v-card class="px-3 py-3">
                     WebSite ABC
                 </v-card>
@@ -279,7 +280,7 @@
   </v-container>
 </template>
 <script>
-  import axios from 'axios'
+  import { mapActions } from 'vuex'
   export default {
     name: 'MainDashBoard',
     data () {
@@ -291,9 +292,15 @@
       this.getKeywords()
     },
     methods: {
+      ...mapActions([
+        'getkeywords',
+        'getWebsite',
+      ]),
       getKeywords () {
-        axios.get('http://3.20.232.245:3000/v1/keywords').then((response) => {
-          this.keywords = response.data.keywords
+        console.log('work')
+        this.getkeywords().then((res) => {
+          console.log(res)
+          this.keywords = res
         })
       },
     },

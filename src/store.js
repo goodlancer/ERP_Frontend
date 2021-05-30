@@ -6,8 +6,8 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const axios = require('axios')
-// const API = 'http://3.20.232.245:3000'
-const API = 'http://localhost:3000'
+const API = 'http://18.117.57.180:3000'
+// const API = 'http://localhost:3000'
 
 export default new Vuex.Store({
   state: {
